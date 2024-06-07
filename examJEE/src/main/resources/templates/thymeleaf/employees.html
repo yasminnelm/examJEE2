@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee List</title>
+</head>
+<body>
+<nav>
+    <a href="/home">Home</a>
+</nav>
+<h1>Employee List</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Skills</th>
+        <th>Projects</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="employee : ${employees}">
+        <td th:text="${employee.id}"></td>
+        <td th:text="${employee.name}"></td>
+        <td th:text="${employee.email}"></td>
+        <td th:text="${employee.skills}"></td>
+        <td>
+            <ul>
+                <li th:each="project : ${employee.projects}" th:text="${project.name}"></li>
+            </ul>
+        </td>
+        <td>
+            <form th:action="@{/removeEmployee}" method="post">
+                <input type="hidden" name="employeeId" th:value="${employee.id}" />
+                <button type="submit">Remove</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
